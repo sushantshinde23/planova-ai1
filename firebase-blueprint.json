@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Mission": {
+      "title": "Mission",
+      "description": "An autonomous operational mission with objectives, category, priority, and status.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "objective": { "type": "string" },
+        "category": { "type": "string" },
+        "status": { "type": "string" },
+        "priority": { "type": "string" },
+        "location": { "type": "string" },
+        "progress": { "type": "number" },
+        "planVersion": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "objective", "status"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "An executable unit of work with status and dependencies.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "missionId": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "priority": { "type": "string" },
+        "assignedAgent": { "type": "string" },
+        "riskLevel": { "type": "string" }
+      },
+      "required": ["id", "missionId", "title", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "An immutable audit trail record for autonomous actions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "missionId": { "type": "string" },
+        "agent": { "type": "string" },
+        "action": { "type": "string" },
+        "user": { "type": "string" },
+        "riskLevel": { "type": "string" },
+        "result": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "agent", "action"]
+    }
+  },
+  "firestore": {
+    "/missions/{missionId}": {
+      "schema": "Mission",
+      "description": "Collection of operational missions."
+    },
+    "/missions/{missionId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Tasks associated with a mission."
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Immutable operational audit records."
+    }
+  }
+}
